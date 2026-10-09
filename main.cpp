@@ -6,30 +6,37 @@
 #include <stdexcept>
 using namespace std;
 
+
+//Inhertance and virtual class implementation
+
 class Meal {
 protected:
     int price;
 
 public:
     Meal(int p) : price(p) {}
+
     virtual ~Meal() {}
 
-    // Polymorphic method to calculate charge
-    virtual double calculateCharge(int quantity) {
+    virtual double calculateCharge(int quantity) = 0;
+};
+
+class VegMeal : public Meal {
+public:
+    VegMeal() : Meal(250) {}
+
+    double calculateCharge(int quantity) override {
         return price * quantity;
     }
 };
 
-// Derived class for Veg Meal
-class VegMeal : public Meal {
-public:
-    VegMeal() : Meal(250) {}
-};
-
-// Derived class for Non-Veg Meal
 class NonVegMeal : public Meal {
 public:
     NonVegMeal() : Meal(350) {}
+
+    double calculateCharge(int quantity) override {
+        return price * quantity;
+    }
 };
 
 void displaySeats(vector<vector<int>>& a) {
